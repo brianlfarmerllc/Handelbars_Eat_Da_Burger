@@ -1,23 +1,25 @@
 const connection = require("./Connection");
 
 
-class DB {
-    // keeping a reference to the connection
-    constructor(connection) {
-        this.connection = connection
-    }
-    // Alphabetical ordered SQL query functions.
-    insertOne() {
+let orm = {
 
-    }
+    // Alphabetical ordered SQL query methode.
+    insertOne: function () { },
 
-    selectAll() {
+    selectAll: function (table) {
+        var queryString = "SELECT * FROM ??";
+        connection.query(queryString, [table], function (err, result) {
+            if (err) throw err;
+            console.log("\n")
+            console.table(result);
+        })
+    },
 
-    }
 
-    updateOne() {
 
-    }
+    updateOne: function () { }
+
+
 }
 
-module.exports = new DB(connection);
+module.exports = orm

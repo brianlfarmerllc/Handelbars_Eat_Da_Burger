@@ -1,1 +1,1 @@
-const db = require("../config/orm")
+const orm = require("../config/orm")

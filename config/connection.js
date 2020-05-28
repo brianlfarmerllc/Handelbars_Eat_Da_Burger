@@ -15,13 +15,6 @@ if (process.env.JAWSDB_URL) {
   });
 }
 
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "",
-//   database: "burgers_db",
-// });
 
 // using connection to connect
 connection.connect(function (err) {
@@ -35,5 +28,6 @@ connection.connect(function (err) {
 // Setting up connection.query to use promises instead of callbacks
 // This allows us to use the async/await syntax
 connection.query = util.promisify(connection.query);
+
 
 module.exports = connection;

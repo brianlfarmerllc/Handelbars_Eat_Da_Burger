@@ -15,7 +15,7 @@
                             <h5 class="card-title">Hope your hungry!</h5>
                             <p class="card-text">Enjoy your "{{this.burger_name}}" !!! 
                             </p>
-                            <button data-planid="{{this.id}}" class="btn btn-primary delBurger">Eat Burger</button>
+                            <button data-burgerid="{{this.id}}" class="btn btn-primary delBurger">Eat Burger</button>
                         </div>
                     </div>
                 </li>
@@ -46,7 +46,20 @@ $("#orderBurger").on("submit", function (event) {
       data: newBurger
     }).then(
       function () {
-        console.log("added new burger order");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+    $(".delBurger").on("click", function(event) {
+    var id = $(this).data("burgerid");
+
+    // Send the DELETE request.
+    $.ajax("/api/burgers/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
         // Reload the page to get the updated list
         location.reload();
       }

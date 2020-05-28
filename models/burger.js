@@ -15,7 +15,7 @@ router.get('/', function (req, res) {
 
 router.post("/api/burgers", function (req, res) {
     connection.query(
-      "INSERT INTO burgers (burger_name) VALUES (?)",[req.body.burger], function (err, result) {
+      "INSERT INTO burgers (burger_name) VALUES (?)",[req.body.burger_name], function (err, result) {
         if (err) {
           return res.status(500).end();
         }

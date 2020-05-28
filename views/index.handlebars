@@ -1,8 +1,43 @@
+	   <header class="container-fluid" style="width:100%">
+        <div class=" header row justify-content-center align-content-center">
+            <div class="col-12">
+                <h1>Eat Da Burger</h1>
+            </div>
+        </div>
+        <div class="row burgerImg text-center justify-content-md-around">
+            <div class="col-12 col-md-3 mt-4 mt-md-0">
+                <img class="" src="./assets/img/burger.jpg" alt="Burger Image">
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card text-center order-card">
+                    <div class="card-header" style="background-color: dodgerblue; color: ghostwhite;">
+                      Burgers, Burgers, Burgers
+                    </div>
+                    <div class="card-body">
+                        {{!-- form to order burger, burger entered here should POST to mysql burgers table --}}
+                     <form>
+                        <form id="orderBurger" class="button-size">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Enter your burger order below</label>
+                              <input type="text" class="form-control" name="burger" placeholder="Enter Burger Order">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Place Order</button>
+                          </form>
+                     </form>
+                    </div>
+                    <div class="card-footer" style="background-color: dodgerblue; color: ghostwhite;">
+                      Try our new impossible burger!
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </header>
 <hr/>
 <div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <ul>
+                {{!-- renders list of burgers in cards from burgers table in burgers_db --}}
                 {{#each burgers}}
                 <li>
                     <div class="card mt-3">
@@ -27,5 +62,27 @@
 
 <script type="text/javascript">
 
+
+$("#orderBurger").on("submit", function (event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    // [name=burger] will find an element with a "burger" attribute equal to the string "burger_name"
+    var newBurger = {
+      burger_name: $("#orderBurger [name=burger]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function () {
+        console.log("added new burger order");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
 
 </script>

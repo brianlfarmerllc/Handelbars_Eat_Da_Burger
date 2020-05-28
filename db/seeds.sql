@@ -1,7 +1,6 @@
 USE burgers_db;
 
-INSERT INTO burgers (burger_name, devoured) values("Guacapotle", false)
-INSERT INTO burgers (burger_name, devoured) values("Bacon Lover", false)
-INSERT INTO burgers (burger_name, devoured) values("Your My Boy Blue", false)
-INSERT INTO burgers (burger_name, devoured) values("Impossible Maverick", false)
-INSERT INTO burgers (burger_name, devoured) values("Jive Turkey", false)
+INSERT INTO burgers (burger_name) values("Bacon Lover");
+INSERT INTO burgers (burger_name) values("Your My Boy Blue");
+INSERT INTO burgers (burger_name) values("Impossible Maverick");
+INSERT INTO burgers (burger_name) values("Jive Turkey")

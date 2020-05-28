@@ -13,4 +13,18 @@ router.get('/', function (req, res) {
     })
 });
 
+router.post("/api/burgers", function (req, res) {
+    connection.query(
+      "INSERT INTO burgers (burger_name) VALUES (?)",[req.body.burger], function (err, result) {
+        if (err) {
+          return res.status(500).end();
+        }
+  
+        // Send back the ID of the new plan
+        res.json({ id: result.insertId });
+        console.log({ id: result.insertId });
+      }
+    );
+  });
+
 module.exports = router;

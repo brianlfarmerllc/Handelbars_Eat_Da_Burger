@@ -1,0 +1,17 @@
+<li>
+    <div class="card mt-3">
+        <div class="card-header" style="background-color: dodgerblue; color: ghostwhite;">
+            Eat-Da-Burger Special # {{this.id}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Hope your hungry!</h5>
+            <p class="card-text">Enjoy your "{{this.burger_name}}" !!!
+            </p>
+            <button data-burgerid="{{this.id}}" class="btn btn-primary delBurger" 
+            {{#if eaten}}{{else}}style="display: none;"{{/if}}>Eat Burger</button>
+            <button class="offMenu btn btn-primary" data-id="{{this.id}}" data-beeneaten="{{eaten}}">
+                {{#if eaten}}Remove From Menu{{else}}Add Back to Menu{{/if}}
+            </button>
+        </div>
+    </div>
+</li>

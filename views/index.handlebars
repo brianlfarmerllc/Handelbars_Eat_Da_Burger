@@ -1,34 +1,31 @@
-
-<hr/>
+<hr />
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-6">
-            <ul>
-                {{!-- renders list of burgers in cards from burgers table in burgers_db --}}
-                {{#each burgers}}
-                <li>
-                    <div class="card mt-3">
-                        <div class="card-header" style="background-color: dodgerblue; color: ghostwhite;">
-                            Eat-Da-Burger Special # {{this.id}}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Hope your hungry!</h5>
-                            <p class="card-text">Enjoy your "{{this.burger_name}}" !!! 
-                            </p>
-                            <button data-burgerid="{{this.id}}" class="btn btn-primary delBurger">Eat Burger</button>
-                        </div>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-        <div class="col-5"></div>
+  <div class="row">
+    <div class="col-6">
+      <ul>
+        {{!-- renders list of burgers in cards from burgers table in burgers_db --}}
+        {{#each burgers}}
+        {{#unless devoured}}
+        {{> burgers/burger-block eaten=true}}
+        {{/unless}}
+        {{/each}}
+      </ul>
     </div>
+    <div class="col-6">
+      <ul>
+        {{#each burgers}}
+        {{#if devoured}}
+        {{> burgers/burger-block eaten=false}}
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
 
-$("#orderBurger").on("submit", function (event) {
+  $("#orderBurger").on("submit", function (event) {
     // Make sure to preventDefault on a submit event.
     console.log(event)
     event.preventDefault();
@@ -50,19 +47,38 @@ $("#orderBurger").on("submit", function (event) {
     );
   });
 
-    $(".delBurger").on("click", function(event) {
+  $(".delBurger").on("click", function (event) {
     var id = $(this).data("burgerid");
 
     // Send the DELETE request.
     $.ajax("/api/burgers/" + id, {
       type: "DELETE"
     }).then(
-      function() {
+      function () {
         // Reload the page to get the updated list
         location.reload();
       }
     );
+  });
+
+    $(".offMenu").on("click", function(event) {
+    var id = $(this).data("id");
+    var eatenState = $(this).data("beeneaten").valueOf()
+  
+    var newEatenState = {
+      devoured: eatenState
+    };
     
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: newEatenState
+    }).then(
+      function() {
+        console.log("changed devoured to", eatenState);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
   });
 
 </script>
